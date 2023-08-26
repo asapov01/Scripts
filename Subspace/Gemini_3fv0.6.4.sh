@@ -12,7 +12,7 @@ logo
 
 function update() {
 printGreen "Видалення застарілої версії мережі Subspace Gemini 3f v.0.6.0" && sleep 2
-echo -e "y\nn\ny\ny" | sudo /usr/local/bin/pulsar wipe
+echo -e "y\nn\ny\nn" | sudo /usr/local/bin/pulsar wipe
 
 printGreen "Розпочалось встановлення Subpsace Gemini 3f v.0.6.4"
 exists()
@@ -36,10 +36,7 @@ sudo chmod +x pulsar
 sudo mv pulsar /usr/local/bin/
 sudo rm -rf $HOME/.config/pulsar
 /usr/local/bin/pulsar init
-#systemctl stop subspaced subspaced-farmer &>/dev/null
-#rm -rf ~/.local/share/subspace*
 
-#source ~/.bash_profile
 sleep 1
 
 echo "[Unit]
