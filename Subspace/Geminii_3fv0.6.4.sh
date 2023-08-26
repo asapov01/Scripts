@@ -15,45 +15,13 @@ printGreen "Видалення застарілої версії мережі Su
 echo -e "y\nn\ny\nn" | sudo /usr/local/bin/pulsar wipe
 
 printGreen "Розпочалось встановлення Subpsace Gemini 3f v.0.6.4"
-exists()
-{
-  command -v "$1" >/dev/null 2>&1
-}
-if exists curl; then
-	echo ''
-else
-  sudo apt update && sudo apt install curl -y < "/dev/null"
-fi
-bash_profile=$HOME/.bash_profile
-if [ -f "$bash_profile" ]; then
-    . $HOME/.bash_profile
-fi
-
-sudo apt update && sudo apt install ocl-icd-opencl-dev libopencl-clang-dev libgomp1 -y
 cd $HOME
 wget -O pulsar https://github.com/subspace/pulsar/releases/download/v0.6.4-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.4-alpha
 sudo chmod +x pulsar
 sudo mv pulsar /usr/local/bin/
 sudo rm -rf $HOME/.config/pulsar
 /usr/local/bin/pulsar init
-
 sleep 1
-
-echo "[Unit]
-Description=Subspace Node
-After=network.target
-
-[Service]
-User=$USER
-Type=simple
-ExecStart=/usr/local/bin/pulsar farm --verbose
-Restart=on-failure
-LimitNOFILE=1024000
-
-[Install]
-WantedBy=multi-user.target" > $HOME/subspaced.service
-
-sudo mv $HOME/subspaced.service /etc/systemd/system/
 sudo systemctl restart systemd-journald
 sudo systemctl daemon-reload
 sudo systemctl enable subspaced
