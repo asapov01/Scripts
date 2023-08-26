@@ -22,7 +22,6 @@ sudo mv pulsar /usr/local/bin/
 sudo rm -rf $HOME/.config/pulsar
 /usr/local/bin/pulsar init
 sleep 1
-sudo systemctl restart subspaced
 
 if [[ `service subspaced status | grep active` =~ "running" ]]; then
 echo ""
