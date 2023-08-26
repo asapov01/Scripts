@@ -11,7 +11,7 @@ function printGreen {
 logo
 
 function update() {
-printGreen "Видалення застарілої версії мережі Subspace Gemini 3f v.0.6.0" && sleep 2
+printGreen "Видалення застарілих файлів Subspace Gemini 3f v.0.6.0" && sleep 2
 echo -e "y\nn\ny\nn" | sudo /usr/local/bin/pulsar wipe
 
 printGreen "Розпочалось встановлення Subpsace Gemini 3f v.0.6.4"
@@ -21,6 +21,7 @@ sudo chmod +x pulsar
 sudo mv pulsar /usr/local/bin/
 sudo rm -rf $HOME/.config/pulsar
 /usr/local/bin/pulsar init
+sudo systemctl restart subspaced
 sleep 1
 
 if [[ `service subspaced status | grep active` =~ "running" ]]; then
