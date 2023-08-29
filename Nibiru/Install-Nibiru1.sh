@@ -89,9 +89,9 @@ EOF
 
 nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 
-# Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/nibiru/nibiru-itn-1_latest.tar.lz4"
-curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
+printGreen "Завантажуємо снепшот для прискорення синхронізації ноди..." && sleep 1
+sudo apt install lz4
+curl -L https://snapshots.kjnodes.com/nibiru-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.nibid
 
 sudo systemctl daemon-reload
 sudo systemctl enable nibid
