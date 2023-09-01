@@ -11,7 +11,7 @@ function logo() {
 function delete() {
 clear
 logo
-printGreen "Видаляємо ноду Holograph..."
+printGreen "Видаляємо Holograph..." && sleep 2
  npm uninstall -g @holographxyz/cli
  sudo rm -r /usr/local/lib/node_modules/@holographxyz
  rm -rf /root/.config/holograph
