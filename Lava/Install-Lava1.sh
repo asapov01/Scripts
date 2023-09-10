@@ -44,12 +44,7 @@ cp lavad /usr/local/bin
   lavad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 
-sudo sed -i 's/pprof_laddr = "0\.0\.0\.0:6060"/pprof_laddr = "0\.0\.0\.0:6160"/' $HOME/.lava/config/config.toml
-sudo sed -i 's/laddr = "tcp:\/\/0\.0\.0\.0:26657"/laddr = "tcp:\/\/0\.0\.0\.0:16657"/' $HOME/.lava/config/config.toml
-sudo sed -i 's/node = "tcp:\/\/localhost:26657"/node = "tcp:\/\/localhost:16657"/' $HOME/.lava/config/client.toml
-sudo sed -i 's/address = "tcp:\/\/0\.0\.0\.0:1317"/address = "tcp:\/\/0\.0\.0\.0:1327"/' "$HOME/.lava/config/app.toml"
-sudo sed -i -e "s|address = \"0.0.0.0:9090\"|address = \"0.0.0.0:19090\"|; s|address = \"0.0.0.0:9091\"|address = \"0.0.0.0:19091\"|" $HOME/.lava/config/app.toml
-sudo sed -i 's|laddr = "tcp://0.0.0.0:26656"|laddr = "tcp://0.0.0.0:16656"|' $HOME/.lava/config/config.toml
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:32658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:32657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:6660\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:32656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":32660\"%" $HOME/.lava/config/config.toml && sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:9690\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:9691\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:1917\"%; s%^address = \"0.0.0.0:8545\"%address = \"0.0.0.0:9145\"%; s%^ws-address = \"0.0.0.0:8546\"%ws-address = \"0.0.0.0:9146\"%; s%^address = \"127.0.0.1:8545\"%address = \"127.0.0.1:9145\"%; s%^ws-address = \"127.0.0.1:8546\"%ws-address = \"127.0.0.1:9146\"%" $HOME/.lava/config/app.toml && sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:32657\"%" $HOME/.lava/config/client.toml 
 
 echo "[Unit]
 Description=Lava Node
@@ -79,8 +74,8 @@ sudo systemctl start lavad && sleep 5
 
 printDelimiter
 printGreen "Переглянути журнал логів:         sudo journalctl -u lavad -f -o cat"
-printGreen "Переглянути статус синхронізації: lavad status 2>&1 | jq .SyncInfo.catching_up"
-printGreen "Порти які використовує ваша нода: 16656,16657,6160,1327,19090,19091"
+printGreen "Переглянути статус синхронізації: lavad status 2>&1 | jq .SyncInfo"
+printGreen "Порти які використовує ваша нода: 1917,32660,6660,32656,32657,32658,9691,9690"
 printGreen "В журналі логів спочатку ви можете побачити помилку Connection is closed. Але за 5-10 секунд нода розпочне синхронізацію"
 printDelimiter
 
